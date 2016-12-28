@@ -41,7 +41,6 @@ if __name__ == "__main__":
     try:
         main()
         exit(0)
-    except Exception, ex:
-        print("Errors occured while running neuralnet ", ex)
+    except Exception:
+        print("Errors occured while running neuralnet ")
         exit(1)
-   
