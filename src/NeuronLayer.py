@@ -1,4 +1,8 @@
-import numpy as np
+try:
+    import numpy as np
+except ImportError:
+    print("Numpy not found please install the package using pip")
+    
 import Helpers
 
 
