@@ -20,7 +20,7 @@ class MNISTLoader:
 
     def normalize(self):
         for i in range(0, len(self._images)):
-            self._images[i] = [float(j) / max(self._images[i]) for j in self._images[i]]
+            self._images[i] = [float(j) / 255 for j in self._images[i]]
 
 
     def get_data(self):
