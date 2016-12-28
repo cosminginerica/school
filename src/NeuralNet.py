@@ -1,5 +1,6 @@
 import random
 from MNISTLoader import MNISTLoader
+import time
 
 class NeuralNetwork:
     def __init__(self):
@@ -8,16 +9,24 @@ class NeuralNetwork:
         self._test_data = None
 
     def load_data(self, data_path, label_path):
+        print("Load train data")
+        start = time.time()
         mnist_data = MNISTLoader(data_path, label_path)
         mnist_data.read_data()
         mnist_data.read_labels()
         self._training_data = mnist_data.get_data()
+        end = time.time()
+        print("Duration: {0:.2f} s".format(end - start))
 
     def load_test_data(self, data_path, label_path):
+        print("Load test data")
+        start = time.time()
         mnist_test = MNISTLoader(data_path, label_path)
         mnist_test.read_data()
         mnist_test.read_labels()
         self._test_data = mnist_test.get_data()
+        end = time.time()
+        print("Duration: {0:.2f} s".format(end - start))
 
     def connect_layers(self):
         """
@@ -45,16 +54,21 @@ class NeuralNetwork:
         """
         for i in range(0, epochs):
             random.shuffle(self._training_data)
+            start = time.time()
             for j in range(0, len(self._training_data) // mini_batch_size):
                 self.update_mini_batch(self._training_data[j * mini_batch_size : (j + 1) * mini_batch_size],
                                        eta,
                                        lambda_,
                                        mini_batch_size)
+            end = time.time()
             if self._test_data is None:
                 print("Epoch {0} finished.".format(i))
             else:
-                print("Epoch {0} : {1} \ {2}".format(i, self.accuracy(self._test_data),
-                                                     len(self._test_data)))
+                print("Epoch {0} : {1} \ {2} \ {3:.02f} s".\
+                      format(i, self.accuracy(self._test_data),
+                             len(self._test_data), end - start))
+
+
 
     def update_mini_batch(self, batch, eta, lambda_, mini_batch_size):
         for i in range(0, len(self._layers)):
