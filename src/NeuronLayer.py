@@ -89,14 +89,14 @@ class NeuronLayer:
 
         if self._is_input is False:
             # update nabla_b
-            self._nabla_b += self._deltas
+            self._nabla_b = np.add(self._nabla_b, self._deltas.reshape(self._nabla_b.shape))
 
             # update nabla_w
             self._nabla_w += np.dot(np.atleast_2d(self._deltas).T,
                                     np.atleast_2d(self._input_layer.get_activations()))
 
     def reset_nabla_b(self):
-        self._nabla_b = np.zeros(self._shape)
+        self._nabla_b = np.zeros(self._deltas.shape)
 
     def reset_nabla_w(self):
         if self._is_input is False:
@@ -108,7 +108,7 @@ class NeuronLayer:
                             (eta / mini_batch_size) * self._nabla_w
 
     def update_bias(self, eta, mini_batch_size):
-        self._biases -= (eta / mini_batch_size) * self._nabla_b
+        self._biases -= (eta / mini_batch_size) * self._nabla_b.reshape(self._biases.shape)
 
     def set_input(self, input_layer):
         self._input_layer = input_layer

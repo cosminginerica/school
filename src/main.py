@@ -9,7 +9,7 @@ MAIN_MODULE_PATH = os.path.dirname(__file__)
 
 def main():
     l1 = NeuronLayer((28, 28), True, False)
-    l2 = NeuronLayer((100,))
+    l2 = NeuronLayer((10, 10))
     l3 = NeuronLayer((10,), False, True)
     
     network = NeuralNetwork()
@@ -42,5 +42,5 @@ if __name__ == "__main__":
         main()
         exit(0)
     except Exception:
-        print("Errors occured while running neuralnet ")
+        print("During execution of neural net, an exception occurred")
         exit(1)
