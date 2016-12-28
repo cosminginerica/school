@@ -1,6 +1,8 @@
 # Miscellaneous functions
-import numpy as np
-
+try:
+    import numpy as np
+except ImportError:
+    print("Numpy not found please install using pip")
 
 def sigmoid(z):
     return 1.0 / (1.0 + np.e**(-z))
