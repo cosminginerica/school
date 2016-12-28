@@ -1,6 +1,8 @@
 from NeuralNet import NeuralNetwork
 from NeuronLayer import NeuronLayer
 import cProfile
+import os
+
 
 if __name__ == "__main__":
     l1 = NeuronLayer((28, 28), True, False)
@@ -13,8 +15,10 @@ if __name__ == "__main__":
     network.connect_layers()
     pr = cProfile.Profile()
     pr.enable()
-    network.load_data("train-images.idx3-ubyte", "train-labels.idx1-ubyte")
-    network.load_test_data("t10k-images.idx3-ubyte", "t10k-labels.idx1-ubyte")
+    network.load_data(os.path.abspath("data/train-images.idx3-ubyte"),
+                      os.path.abspath("data/train-labels.idx1-ubyte"))
+    network.load_test_data(os.path.abspath("data/t10k-images.idx3-ubyte"),
+                           os.path.abspath("data/t10k-labels.idx1-ubyte"))
     network.SGD(0.1, 0.1, 30, 10)
     pr.disable()
     pr.print_stats(sort="cumtime")
