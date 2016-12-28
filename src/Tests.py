@@ -1,6 +1,9 @@
+try:
+    import numpy as np
+except ImportError:
+    print("Numpy not found tests failed")
 from MNISTLoader import MNISTLoader
 from NeuronLayer import NeuronLayer
-import numpy as np
 
 def TestMNIST(train_data):
     if train_data.read_data() is False:
